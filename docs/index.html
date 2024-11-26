@@ -8,29 +8,16 @@
   <meta name="description" content="Description">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
   <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/docsify@4/lib/themes/vue.css">
-  <link rel="stylesheet" href="https://unpkg.com/swagger-ui-dist@3/swagger-ui.css" />
-  <style>
-    /* Ensure no conflicting styles */
-    .markdown-section {
-      position: unset !important;
-      height: 100vh !important;
-      padding: 0 !important;
-      margin: 0 !important;
-    }
-    #swagger-ui {
-      height: 100vh; /* Full viewport height */
-      display: block;
-    }
-  </style>
+  <!-- Swagger UI Styles -->
+  <link rel="stylesheet" href="https://unpkg.com/swagger-ui-dist/swagger-ui.css" />
 </head>
 
 <body>
   <nav class="app-nav"></nav>
   <div id="app">Loading ...</div>
-  
   <script>
     window.$docsify = {
-      name: 'AWTRIX 3',
+      name: '',
       loadSidebar: true,
       coverpage: true,
       loadNavbar: true,
@@ -47,31 +34,22 @@
       plugins: [
         function (hook) {
           hook.doneEach(function () {
+            // Dynamically load Swagger UI when the Swagger page is visited
             if (location.hash.includes('/swagger')) {
-              // Load Swagger UI scripts dynamically
               const script1 = document.createElement('script');
               script1.src = 'https://unpkg.com/swagger-ui-dist/swagger-ui-bundle.js';
               script1.onload = function () {
                 const script2 = document.createElement('script');
                 script2.src = 'https://unpkg.com/swagger-ui-dist/swagger-ui-standalone-preset.js';
                 script2.onload = function () {
-                  // Initialize Swagger UI
+                  // Initialize Swagger UI inside the div with id 'swagger-ui'
                   SwaggerUIBundle({
-                    url: 'swagger/awtrix3.swagger.yml',
+                    url: 'swagger/awtrix3.swagger.yml', // Path to your Swagger YAML file
                     dom_id: '#swagger-ui',
                     deepLinking: true,
                     presets: [SwaggerUIBundle.presets.apis, SwaggerUIStandalonePreset],
                     layout: 'StandaloneLayout',
                   });
-
-                  // Hide the SmartBear branding
-                  const style = document.createElement('style');
-                  style.innerHTML = `
-                    .swagger-ui .info .swagger-ui-info__title:contains("Swagger UI") {
-                      display: none !important;
-                    }
-                  `;
-                  document.head.appendChild(style);
                 };
                 document.body.appendChild(script2);
               };
