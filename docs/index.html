@@ -40,14 +40,21 @@
                   position: unset !important;
                   height: 100vh !important;
                 }
+                body {
+                  margin: 0;
+                  padding: 0;
+                  height: 100vh;
+                  overflow: auto; /* Allow scroll on main page */
+                }
               `;
               document.head.appendChild(style);
 
-              // Ensure body styles are reset for full-screen iframe
-              document.body.style.margin = '0';
-              document.body.style.padding = '0';
-              document.body.style.height = '100vh';
-              document.body.style.overflow = 'hidden';
+              // Ensure the iframe's container has proper styles
+              const iframeContainer = document.getElementById('swagger-ui');
+              if (iframeContainer) {
+                iframeContainer.style.height = '100vh';
+                iframeContainer.style.width = '100%';
+              }
             }
           });
         },
