@@ -37,7 +37,7 @@
           // Run this function after each page render
           hook.doneEach(function () {
             // Check if the current page is the API documentation
-            if (location.hash.includes('/api')) {
+            if (location.hash.includes('/swagger')) {
               const swaggerContainer = document.getElementById('swagger-ui');
               if (!swaggerContainer) {
                 // Create the SwaggerUI container dynamically
