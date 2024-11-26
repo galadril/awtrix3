@@ -28,7 +28,31 @@
             twitter: true,
             whatsapp: true,
             telegram: true,
-        }
+        },
+      
+    plugins: [
+      function (hook) {
+        hook.doneEach(function () {
+          if (location.hash.includes('/swagger')) {
+            // Apply the override styles when on the Swagger page
+            const style = document.createElement('style');
+            style.innerHTML = `
+              .markdown-section {
+                position: unset !important;
+                height: 100vh !important;
+              }
+            `;
+            document.head.appendChild(style);
+
+            // Ensure body styles are reset for full-screen iframe
+            document.body.style.margin = '0';
+            document.body.style.padding = '0';
+            document.body.style.height = '100vh';
+            document.body.style.overflow = 'hidden';
+          }
+        });
+      },
+    ],
     }
   </script>
   <!-- Docsify v4 -->
