@@ -1,8 +1,18 @@
 # API Documentation
 
-<iframe 
-  src="https://galadril.github.io/awtrix3/swagger/index.html" 
-  width="100%" 
-  height="100%" 
-  style="border: none; position: absolute; top: 0; left: 0; bottom: 0; right: 0;">
-</iframe>
+Below is the SwaggerUI for the API:
+
+<div id="swagger-ui"></div>
+
+<script>
+  // Load Swagger UI directly via Docsify plugin
+  window.onload = function () {
+    const ui = SwaggerUIBundle({
+      url: "swagger/awtrix3.swagger.yml", // Replace with your Swagger file URL
+      dom_id: "#swagger-ui",
+      deepLinking: true,
+      presets: [SwaggerUIBundle.presets.apis, SwaggerUIStandalonePreset],
+      layout: "StandaloneLayout",
+    });
+  };
+</script>
