@@ -7,6 +7,8 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
   <meta name="description" content="AWTRIX 3 API Documentation">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
+  <!-- Docsify Vue Theme CSS (default for all pages) -->
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/docsify@4/lib/themes/vue.css">
 </head>
 
 <body>
@@ -33,15 +35,22 @@
       plugins: [
         function (hook) {
           hook.doneEach(function () {
-            // Apply custom styles for the Swagger UI section if it's the current page
+            // Check if the current page is the Swagger page
             if (location.hash.includes('/swagger')) {
+              // Apply custom styles for the Swagger UI section
               const style = document.createElement('style');
               style.innerHTML = `
-                /* Swagger UI adjustments */
+                /* Swagger UI Adjustments */
                 .swagger-ui .topbar {
-                  background-color: #1b1b1b !important;
+                  background-color: #1b1b1b !important; /* Override the topbar style */
                   padding: 10px 0 !important;
-                  display: none !important;
+                  display: none !important; /* Hide the topbar */
+                }
+
+                /* Ensure Swagger UI takes precedence over Docsify theme */
+                .swagger-ui {
+                  font-family: Arial, sans-serif !important; /* Override font if necessary */
+                  padding: 20px !important; /* Adjust padding if needed */
                 }
               `;
               document.head.appendChild(style);
