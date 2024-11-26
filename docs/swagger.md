@@ -1,22 +1,6 @@
 # API Documentation
 
-Below is the SwaggerUI for the API:
+Welcome to the AWTRIX 3 API Documentation! 
+You can interact with the API using the interactive Swagger UI below.
 
-<div id="swagger-ui"></div>
-
-<script>
-  // Load Swagger UI directly via Docsify plugin
-  window.onload = function () {
-    const ui = SwaggerUIBundle({
-      url: "swagger/awtrix3.swagger.yml",
-      dom_id: "#swagger-ui",
-      deepLinking: true,
-      presets: [SwaggerUIBundle.presets.apis, SwaggerUIStandalonePreset],
-      layout: "StandaloneLayout",
-      onComplete: function () {
-        // Hide the SmartBear banner on completion
-        document.querySelector('.swagger-ui .info').style.display = 'none';
-      },
-    });
-  };
-</script>
+[swagger](swagger/awtrix3.swagger.yml)
