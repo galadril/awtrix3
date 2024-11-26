@@ -1,7 +1,7 @@
 openapi: 3.0.3
 info:
-  title: AWTRIX API
-  description: A complete API for interacting with the AWTRIX system using HTTP and MQTT.
+  title: AWTRIX3 API
+  description: A complete API for interacting with the AWTRIX3 system using HTTP and MQTT.
   version: 1.0.0
 components:
   securitySchemes:
