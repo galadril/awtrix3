@@ -8,6 +8,8 @@
   <meta name="description" content="Description">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
   <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/docsify@4/lib/themes/vue.css">
+  <!-- Swagger UI Styles -->
+  <link rel="stylesheet" href="https://unpkg.com/swagger-ui-dist/swagger-ui.css" />
 </head>
 
 <body>
@@ -22,22 +24,48 @@
       mergeNavbar: true,
       repo: 'https://github.com/Blueforcer/awtrix3',
       share: {
-            reddit: true,
-            linkedin: true,
-            facebook: true,
-            twitter: true,
-            whatsapp: true,
-            telegram: true,
-        }
-    }
+        reddit: true,
+        linkedin: true,
+        facebook: true,
+        twitter: true,
+        whatsapp: true,
+        telegram: true,
+      },
+      plugins: [
+        function (hook) {
+          hook.doneEach(function () {
+            // Dynamically load Swagger UI when the Swagger page is visited
+            if (location.hash.includes('/swagger')) {
+              const script1 = document.createElement('script');
+              script1.src = 'https://unpkg.com/swagger-ui-dist/swagger-ui-bundle.js';
+              script1.onload = function () {
+                const script2 = document.createElement('script');
+                script2.src = 'https://unpkg.com/swagger-ui-dist/swagger-ui-standalone-preset.js';
+                script2.onload = function () {
+                  // Initialize Swagger UI inside the div with id 'swagger-ui'
+                  SwaggerUIBundle({
+                    url: 'swagger/awtrix3.swagger.yml', // Path to your Swagger YAML file
+                    dom_id: '#swagger-ui',
+                    deepLinking: true,
+                    presets: [SwaggerUIBundle.presets.apis, SwaggerUIStandalonePreset],
+                    layout: 'StandaloneLayout',
+                  });
+                };
+                document.body.appendChild(script2);
+              };
+              document.body.appendChild(script1);
+            }
+          });
+        },
+      ],
+    };
   </script>
-  <!-- Docsify v4 -->
+
+  <!-- Docsify Core -->
   <script src="//cdn.jsdelivr.net/npm/docsify@4"></script>
   <script src="https://unpkg.com/docsify-copy-code@2"></script>
   <script src="//unpkg.com/docsify-share/build/index.min.js"></script>
   <script src="//cdn.jsdelivr.net/npm/prismjs@1.22/components/prism-json.min.js"></script>
-  <script src="//unpkg.com/prismjs/components/prism-json.min.js"></script>
-
 </body>
 
 </html>
