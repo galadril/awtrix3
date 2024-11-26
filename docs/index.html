@@ -34,20 +34,21 @@
       },
       plugins: [
         function (hook) {
-          // Run this function after each page render
           hook.doneEach(function () {
-            // Check if the current page is the API documentation
+            // Check if the current page is the Swagger documentation
             if (location.hash.includes('/swagger')) {
-              const swaggerContainer = document.getElementById('swagger-ui');
-              if (!swaggerContainer) {
-                // Create the SwaggerUI container dynamically
-                const container = document.createElement('div');
-                container.id = 'swagger-ui';
-                container.style.marginTop = '20px';
-                container.style.width = '100%';
-                document.querySelector('.content').appendChild(container);
+              // Ensure SwaggerUI is only initialized once
+              const existingSwagger = document.querySelector('#swagger-ui');
+              if (!existingSwagger) {
+                // Add SwaggerUI container
+                const swaggerContainer = document.createElement('div');
+                swaggerContainer.id = 'swagger-ui';
+                swaggerContainer.style.marginTop = '20px';
+                swaggerContainer.style.width = '100%';
+                document.querySelector('.content').innerHTML = ''; // Clear Docsify content
+                document.querySelector('.content').appendChild(swaggerContainer);
 
-                // Dynamically load SwaggerUI scripts
+                // Load SwaggerUI scripts and initialize
                 const script1 = document.createElement('script');
                 script1.src = 'https://unpkg.com/swagger-ui-dist/swagger-ui-bundle.js';
                 script1.onload = function () {
@@ -55,7 +56,7 @@
                   script2.src = 'https://unpkg.com/swagger-ui-dist/swagger-ui-standalone-preset.js';
                   script2.onload = function () {
                     SwaggerUIBundle({
-                      url: 'swagger/awtrix3.swagger.yml', // Path to your Swagger file
+                      url: 'swagger/awtrix3.swagger.yml', // Update to your Swagger file location
                       dom_id: '#swagger-ui',
                       deepLinking: true,
                       presets: [SwaggerUIBundle.presets.apis, SwaggerUIStandalonePreset],
