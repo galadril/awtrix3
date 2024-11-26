@@ -21,5 +21,4 @@
 
 - API
   - [MQTT/HTTP](api.md)
-
-
+  - [API Developer Portal](swagger.md)
