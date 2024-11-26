@@ -1,0 +1,206 @@
+openapi: 3.0.3
+info:
+  title: AWTRIX API
+  description: A complete API for interacting with the AWTRIX system using HTTP and MQTT.
+  version: 1.0.0
+components:
+  securitySchemes:
+    basicAuth:
+      type: http
+      scheme: basic
+security:
+  - basicAuth: []
+servers:
+  - url: http://{ip}/api
+    description: AWTRIX device
+    variables:
+      ip:
+        default: "192.168.0.1" # Example placeholder
+paths:
+  /moodlight:
+    post:
+      summary: Set the matrix to a custom color or temperature.
+      security:
+        - basicAuth: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                brightness:
+                  type: integer
+                  description: Brightness level.
+                kelvin:
+                  type: integer
+                  description: Color temperature in Kelvin.
+                color:
+                  type: string
+                  description: Color as a HEX string (e.g., "#FF5733").
+      responses:
+        '200':
+          description: Mood lighting set.
+  /indicator1:
+    post:
+      summary: Set a color for Indicator 1.
+      security:
+        - basicAuth: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                color:
+                  type: string
+                  description: Color as a HEX string (e.g., "#FF5733").
+      responses:
+        '200':
+          description: Indicator color set.
+  /indicator2:
+    post:
+      summary: Set a color for Indicator 2.
+      security:
+        - basicAuth: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                color:
+                  type: string
+                  description: Color as a HEX string (e.g., "#FF5733").
+      responses:
+        '200':
+          description: Indicator color set.
+  /indicator3:
+    post:
+      summary: Set a color for Indicator 3.
+      security:
+        - basicAuth: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                color:
+                  type: string
+                  description: Color as a HEX string (e.g., "#FF5733").
+      responses:
+        '200':
+          description: Indicator color set.
+  /notify:
+    post:
+      summary: Send a notification.
+      security:
+        - basicAuth: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                text:
+                  type: string
+                color:
+                  type: string
+                  description: Color as a HEX string (e.g., "#FF5733").
+                duration:
+                  type: integer
+                  description: Notification duration in seconds.
+      responses:
+        '200':
+          description: Notification sent.
+  /custom:
+    post:
+      summary: Create or update a custom app.
+      security:
+        - basicAuth: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                  description: App name.
+                text:
+                  type: string
+                color:
+                  type: string
+                  description: Color as a HEX string (e.g., "#FF5733").
+      responses:
+        '200':
+          description: Custom app updated.
+  /settings:
+    get:
+      summary: Retrieve the current device settings.
+      security:
+        - basicAuth: []
+      responses:
+        '200':
+          description: Current device settings.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  brightness:
+                    type: integer
+                  colorMode:
+                    type: string
+                    description: Current color mode (e.g., RGB, Temperature).
+                  time:
+                    type: string
+                    format: date-time
+                    description: Current time on the device.
+  /status:
+    get:
+      summary: Retrieve the current status of the device.
+      security:
+        - basicAuth: []
+      responses:
+        '200':
+          description: Current device status.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  online:
+                    type: boolean
+                    description: Indicates if the device is online.
+                  uptime:
+                    type: string
+                    description: Device uptime in ISO 8601 format.
+                  version:
+                    type: string
+                    description: Firmware version.
+  /update:
+    post:
+      summary: Update the firmware of the device.
+      security:
+        - basicAuth: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                file:
+                  type: string
+                  description: Path to the firmware file for the update.
+      responses:
+        '200':
+          description: Firmware update started.
+  /reboot:
+    post:
+      summary: Reboot the AWTRIX device.
+      security:
+        - basicAuth: []
+      responses:
+        '200':
+          description: Device rebooted.
