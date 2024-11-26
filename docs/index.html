@@ -52,6 +52,14 @@
                   font-family: Arial, sans-serif !important; /* Override font if necessary */
                   padding: 20px !important; /* Adjust padding if needed */
                 }
+
+                .swagger-ui .info {
+                  display: none !important; /* Hide the topbar */
+                }
+                
+                .swagger-ui .opblock.opblock-post .opblock-summary-method {
+                    background: #49cc90 !important;
+                  }
               `;
               document.head.appendChild(style);
             }
